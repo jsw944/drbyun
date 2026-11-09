@@ -6,6 +6,10 @@ import { loadColumns } from "./columns.mjs";
 
 const columns = loadColumns();
 
+// Public deployment URL, including the GitHub Pages project subdirectory.
+if (process.env.SITE_URL) site.url = process.env.SITE_URL.replace(/\/+$/, "");
+const basePath = new URL(site.url).pathname.replace(/\/+$/, "");
+
 const OUT = "dist";
 const esc = (s = "") => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const abs = (p) => site.url + p;
@@ -18,6 +22,9 @@ const today = new Date().toISOString().slice(0, 10);
 function write(path, content) {
   const file = join(OUT, path);
   mkdirSync(dirname(file), { recursive: true });
+  if (path.endsWith(".html") && basePath) {
+    content = content.replace(/\b(href|src|action)="\/(?!\/)/g, `$1="${basePath}/`);
+  }
   writeFileSync(file, content);
 }
 
