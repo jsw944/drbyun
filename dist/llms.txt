@@ -1,0 +1,35 @@
+# 변혁 한의원
+
+> 변혁 한의원은 침구의학과 전문의·한의학 박사 변혁 대표원장이 직접 진료하는 송파구 잠실 한의원입니다. 비수술 척추·관절, 교통사고 후유증, 안면마비, 비만 진료. 잠실나루역 3번 출구에서 411m.
+
+## 기본 정보
+- 상호: 변혁 한의원
+- 진료: 대표원장 변혁 (침구의학과 전문의 · 한의학 박사) 1인 진료
+- 주소: 서울특별시 송파구 올림픽로35가길 9 잠실푸르지오월드마크 2층
+- 찾아오는 길: 잠실나루역 3번 출구에서 411m
+- 전화: 0507-1487-1353
+- 진료시간: 월–금 09:30–18:30 (휴게 13:30–14:30), 토 09:00–13:00 (평일 13:30–14:30 휴게시간 · 일요일 정기휴무)
+- 주차: 주차 가능 — 잠실푸르지오월드마크 상가 지하 1층 주차장. 한의원급 치료 시 1시간 무료주차, 한방병원급 치료 또는 6g 변혁공진단 처방 시 1시간 30분까지 무료주차.
+- 전문 분야: 침구의학, 비수술 척추·관절, 교통사고 후유증, 안면마비, 비만
+
+## 주요 페이지
+- [처음 오시는 분](https://www.example.com/visit/): 진료시간, 예약, 오시는 길
+- [진료 안내](https://www.example.com/programs/): 진료 항목
+- [비급여 진료비](https://www.example.com/fees/)
+- [자주 묻는 질문](https://www.example.com/faq/)
+- [원장 소개](https://www.example.com/about/)
+- [건강 칼럼](https://www.example.com/columns/)
+
+## 진료 항목
+- [비수술 척추·관절 · 교통사고 후유증](https://www.example.com/programs/spine-joint/): 디스크·협착증 등 척추와 관절 질환, 교통사고 후유증을 비수술로 치료합니다.
+- [목·어깨 담·결림 · 섬유근통 · 근막통증후군](https://www.example.com/programs/neck-shoulder-pain/): 직장인·수험생의 목·어깨 담과 결림, 섬유근통, 근막통증후군을 치료합니다.
+- [두통 · 어지러움 · 이명 · 턱관절](https://www.example.com/programs/headache-dizziness/): 두통, 어지러움, 이명, 턱관절 통증과 소리를 침구의학적으로 치료합니다.
+- [안면마비 (Bell · Ramsey-Hunt)](https://www.example.com/programs/facial-palsy/): 벨마비와 람세이헌트 증후군 등 안면마비를 양방 협진 최신 지견을 바탕으로 치료합니다.
+- [6g 변혁공진단 (집중력·성장·노화·면역력)](https://www.example.com/programs/gongjindan/): 집중력, 성장, 노화, 면역력 관리를 위해 6g 변혁공진단을 처방합니다.
+- [비만 · 대한한방비만학회 인증 한의원](https://www.example.com/programs/obesity/): 탕약과 환약으로 체질에 맞는 비만 치료를 진행합니다.
+- [첩약 건강보험 시범사업](https://www.example.com/programs/chubyak-insurance/): 생리통, 알러지성 비염, 기능성 소화불량, 요추추간판탈출증에 첩약 건강보험 시범사업을 적용합니다.
+
+## 칼럼
+- [한쪽 얼굴이 갑자기 처졌다면 어디로 가야 할까요?](https://www.example.com/columns/facial-palsy-when-to-visit/)
+- [허리 디스크와 척추관 협착증, 증상은 어떻게 다를까요?](https://www.example.com/columns/disc-vs-spinal-stenosis/)
+- [오래 앉아 있으면 뒷목과 어깨가 뭉치는 이유는 무엇일까요?](https://www.example.com/columns/neck-shoulder-stiffness-sitting/)
