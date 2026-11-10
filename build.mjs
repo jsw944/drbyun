@@ -1,7 +1,7 @@
 // 사용법: node build.mjs  → dist/ 에 정적 사이트 생성
 import { mkdirSync, writeFileSync, cpSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { hoursText, site, doctor, features, programs, faqs, fees, metaDefaults } from "./content.mjs";
+import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, faqs, fees, metaDefaults } from "./content.mjs";
 import { loadColumns } from "./columns.mjs";
 
 const columns = loadColumns();
@@ -97,6 +97,7 @@ const mapBtn = (cls = "btn btn-line") =>
 const nav = [
   ["/programs/", "진료 안내"],
   ["/about/", "원장 소개"],
+  ["/treatments/", "치료·장비"],
   ["/visit/", "처음 오시는 분"],
   ["/fees/", "비급여 진료비"],
   ["/columns/", "건강 칼럼"],
@@ -296,6 +297,7 @@ write(
 ${features.length ? `<section class="sec dark" aria-labelledby="sp-h"><div class="wrap">
   ${secHead("SPECIALTY", "변혁 한의원의 특화 치료법", "", "sp-h")}
   <ul class="feat">${features.map((f, i) => `<li><span class="no">0${i + 1}</span><h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p></li>`).join("")}</ul>
+  <p class="section-link"><a class="btn btn-line" href="/treatments/">침·추나·치료 장비 자세히 보기</a></p>
 </div></section>` : ""}
 
 <section class="sec alt" aria-labelledby="doc-h"><div class="wrap doctor-grid">
@@ -357,9 +359,12 @@ write(
     <ul class="tags">${doctor.specialties.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
     <a class="btn" href="${tel}">전화 예약</a>
   </aside>
-  <div class="cv">${doctor.sections
+  <div class="cv"><section class="doctor-message" id="greeting"><p class="kicker">${esc(doctor.vision)}</p><h2>온 가족의 든든한 주치의</h2><p>${esc(doctor.philosophy)}</p><p class="signature">한의학 박사 · 침구의학과 전문의 변혁</p></section>${doctor.sections
     .map((sec) => `<section class="cv-row"><h2>${esc(sec.h)}</h2><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`)
-    .join("")}</div>
+    .join("")}
+    <section class="research-section" id="research"><p class="kicker">RESEARCH & EXCHANGE</p><h2>학술 발표와 교류</h2>
+    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정 · <a href="https://blog.naver.com/revolution1284/223121911632" target="_blank" rel="noopener">블로그 원문</a></figcaption></figure>
+    <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p><a href="${esc(r.url)}" target="_blank" rel="noopener">발표 기록 보기</a></li>`).join("")}</ol></section></div>
 </div>`,
   })
 );
@@ -384,9 +389,30 @@ write(
   </div>
   <h2 class="h2-sec">첫 방문 진행 순서</h2>
   <ol class="steps"><li>접수 및 문진표 작성</li><li>원장 직접 문진·진단</li><li>치료(침·추나 등) 및 한약 상담</li><li>생활 관리 안내와 다음 진료 계획</li></ol>
+  <h2 class="h2-sec">방문 전 준비해 주세요</h2>
+  <div class="guide-grid">${site.firstVisit.map((item) => `<section class="guide-card"><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></section>`).join("")}</div>
+  <h2 class="h2-sec">지하철로 오시는 길</h2>
+  <div class="guide-grid">${site.transit.map((item) => `<section class="guide-card"><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></section>`).join("")}</div>
+  <p class="section-link"><a href="${esc(site.locationBlog)}" target="_blank" rel="noopener">한의원 블로그 위치 안내 보기</a></p>
 </div>`,
   })
 );
+
+// 치료와 장비 안내
+write("treatments/index.html", layout({
+  path: "/treatments/",
+  title: `침·추나·치료 장비 안내 | ${site.name}`,
+  desc: "변혁 한의원의 진찰 과정, 침·추나 및 한방 물리치료 장비를 소개합니다.",
+  crumbs: [["홈", "/"], ["치료·장비", "/treatments/"]],
+  body: `${pageHead("TREATMENT & CARE", "진찰에서 치료까지", "몸의 상태를 먼저 살피고, 필요한 치료를 함께 결정합니다.")}
+<div class="wrap page-body">
+  <div class="visit-grid"><div><p class="kicker">OUR APPROACH</p><h2>경험과 연구를 바탕으로<br>한 사람을 위한 진료</h2><p class="intro section-link">${esc(doctor.intro)}</p><p>증상과 검사 자료를 확인한 후 치료 방법, 진행 과정과 비용을 설명합니다.</p><a class="more" href="/about/#research">대표원장의 학술 활동 보기</a></div>${storefront("잠실푸르지오월드마크 2층 · 변혁 한의원 입구")}</div>
+  <div class="treatment-grid">${treatmentGuide.map((item, i) => `<section class="guide-card"><p class="kicker">CARE 0${i + 1}</p><h2>${esc(item.title)}</h2><p>${esc(item.desc)}</p><ul class="check">${item.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>`).join("")}</div>
+  <h2 class="h2-sec">사진으로 보는 치료 장비</h2>
+  <div class="equipment-gallery">${clinicGallery.map((g) => `<figure><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"><figcaption><h3>${esc(g.title)}</h3><p>${esc(g.caption)}</p><a href="${esc(g.url)}" target="_blank" rel="noopener">블로그 원문 보기</a></figcaption></figure>`).join("")}</div>
+  <p class="notice section-link">사진은 한의원 블로그에 게시된 기록입니다. 진료 후 개인별 상태에 맞는 치료 방법과 이용 가능한 장비를 안내합니다.</p>
+</div>`,
+}));
 
 // 비급여
 write(

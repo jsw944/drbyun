@@ -16,8 +16,18 @@ export const site = {
   geo: { lat: 37.5170248, lng: 127.1033255 },
   area: ["송파구", "잠실", "잠실나루"],
   directions: "잠실나루역 3번 출구에서 411m",
+  transit: [
+    { title: "잠실나루역에서", text: "2호선 잠실나루역 3번 출구에서 잠실푸르지오월드마크 방향으로 오세요." },
+    { title: "잠실역에서", text: "2·8호선 잠실역 9번 출구에서도 도보로 오실 수 있습니다. 네이버 지도로 현재 위치에서의 경로를 확인하세요." },
+  ],
+  firstVisit: [
+    { title: "교통사고 진료", text: "대인접수 후 사고접수번호와 자동차보험 담당자 연락처를 준비해 주세요." },
+    { title: "척추·관절 진료", text: "보유하고 계신 MRI·CT·X-ray 영상과 판독 자료를 가져오시면 진료에 참고합니다." },
+    { title: "증상과 복용약", text: "증상이 시작된 시점, 다친 경위, 현재 복용하는 약을 미리 정리해 주세요." },
+  ],
+  locationBlog: "https://blog.naver.com/revolution1284/150187954866",
   parking:
-    "주차 가능 — 잠실푸르지오월드마크 상가 지하 1층 주차장. 한의원급 치료 시 1시간 무료주차, 한방병원급 치료 또는 6g 변혁공진단 처방 시 1시간 30분까지 무료주차.",
+    "주차 가능 — 잠실푸르지오월드마크 상가 지하 1층 주차장.",
   hours: [
     // days: 스키마용(Monday…), label: 화면 표시용, breakStart/breakEnd: 휴게시간
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], label: "월–금", open: "09:30", close: "18:30", breakStart: "13:30", breakEnd: "14:30" },
@@ -25,7 +35,7 @@ export const site = {
   ],
   hoursNote: "평일 13:30–14:30 휴게시간 · 일요일 정기휴무",
   closed: [{ label: "일", text: "정기휴무" }], // 화면 표시용 휴진 요일 (진료시간 표에 한 줄로 표시)
-  parkingShort: "상가 지하 1층 주차장 · 한의원급 치료 시 1시간 무료", // 메인 화면 요약용
+  parkingShort: "주차 가능 · 상가 지하 1층 주차장", // 메인 화면 요약용
   reservation: "전화 예약 후 방문하시면 대기 시간이 줄어듭니다.",
   naverMapUrl: "https://map.naver.com/p/entry/place/34782696",
   sameAs: ["https://blog.naver.com/revolution1284", "https://map.naver.com/p/entry/place/34782696"],
@@ -42,7 +52,9 @@ export const doctor = {
   title: "대표원장",
   license: "침구의학과 전문의 · 한의학 박사",
   photo: "/assets/doctor.png",
-  intro: "침구의학과 전문의이자 한의학 박사로, 척추·관절 통증을 비롯한 다양한 질환을 직접 진료합니다.",
+  intro: "한의학 박사이자 침구의학과 전문의 변혁 원장이 직접 진료합니다. 임상 경험과 연구를 바탕으로 척추·관절, 교통사고 후유증, 안면마비를 비롯한 몸의 불편함을 함께 살핍니다.",
+  philosophy: "현재의 지식과 능력에 안주하지 않고, 지속적인 노력과 배움으로 저를 믿고 찾아주신 분들의 심신이 건강해지는 변화를 돕겠습니다. 온 가족이 믿고 찾을 수 있는 든든한 주치의가 되고자 합니다.",
+  vision: "Beyond Healing",
   highlights: ["침구의학과 전문의", "한의학 박사", "대한한방비만학회 인증 한의원", "3T MRI 영상의학과 협력"], // 메인 화면 배지
   specialties: ["침구의학", "비수술 척추·관절", "교통사고 후유증", "안면마비", "비만"],
   alumniOf: "동국대학교 한의과대학",
@@ -73,6 +85,8 @@ export const doctor = {
         "대한스포츠한의학회 공인 팀닥터 수료",
         "Cyriax 정형의학연구회 교육과정 KACOM 수료",
         "척추신경추나의학회 정규워크숍 수료",
+        "자생 추나수기요법 지도위원과정 및 척추·관절 추나 정규 과정 수료",
+        "Clinical Research Training 교육과정 수료 (NIH)",
       ],
     },
     {
@@ -89,6 +103,9 @@ export const doctor = {
         "박사(2010.12): 반복적 격강구(隔薑灸) 시술이 심부 열전달에 미치는 영향",
         "석사(2006.08): 유근피(楡根皮) 약침이 LPS 유발 류마티스 관절염 모델에서 MIF 활성 억제에 미치는 영향",
         "SCI(E) Journal of Visualization: Temperature distribution in deep tissue phantom during laser irradiation at 1064 nm measured by thermocouples and thermal imaging technique",
+        "대한스포츠한의학회지 (2010): Proper Acupuncture on GV-3, B-24, and B-52 under X-ray Fluoroscopy for Low Back Pain",
+        "대한침구학회지 (2007): Determination of Safe Needling Depth via X-ray at TE17(Yifeng) and ST7(Xiaguan)",
+        "대한한의학회지 (2006): Individualized Traditional Korean Acupuncture for Knee Osteoarthritis: a Protocol for a Randomized Controlled Trial",
       ],
     },
     { h: "방송 출연", items: ["KBS 뉴스9: 겨울 운동 이렇게", "SBS 현장21: 기자가 만나는 세상 - 몸짱, 그 불편한 진실", "KBS2 굿모닝 대한민국: 잘못된 마사지", "GTV 활력충전 건강이 보인다"] },
@@ -111,16 +128,44 @@ export const features = [
   { title: "추나테이블 자문의 추나요법", desc: "한국생산기술연구원 01M-707 추나테이블 임상 자문을 맡은 대표원장이 시행하는 추나요법입니다." },
 ];
 
+export const treatmentGuide = [
+  { title: "진찰과 영상 자료 확인", desc: "문진과 진찰을 바탕으로 필요한 검사를 판단합니다. 협력 영상의학과의 MRI·X-ray 판독과 보유 영상 자료를 진료에 참고합니다.", items: ["협력 영상의학과 검사 연계", "기존 검사 영상·판독 자료 확인"] },
+  { title: "五刺침법과 침 치료", desc: "대표원장은 요통, 무릎 관절, 턱관절 부위의 침 치료 연구를 국제 학술대회에서 발표했습니다. 진찰 결과에 따라 치료 부위와 방법을 결정합니다.", items: ["ICMART 미국 발표 (2006)", "ICMART 스페인 발표 (2007)", "침·침전기자극술·레이저침 상담"] },
+  { title: "심부 치료와 한방 물리치료", desc: "증상과 신체 상태에 따라 치료 방법과 장비를 선택하고, 치료 계획을 함께 세웁니다.", items: ["ICT·TENS·SSP 전기자극 장비", "초음파·전기자극 조합치료기", "온열·적외선 치료 장비"] },
+  { title: "추나요법", desc: "자생의료재단 잠실 센터장 경력과 추나 수련 경험을 바탕으로 진료합니다. 대표원장은 한국생산기술연구원 추나테이블(01M-707) 임상 자문에 참여했습니다.", items: ["관절의 움직임과 신체 상태 확인", "추나테이블을 이용한 수기요법", "치료 범위와 비용 사전 안내"] },
+];
+
+export const research = [
+  { year: "2006", title: "ICMART 미국 학술대회", text: "요통의 침 치료를 주제로 발표했습니다.", url: "https://blog.naver.com/revolution1284/220634014054" },
+  { year: "2007", title: "ICMART 스페인 학술대회", text: "퇴행성 슬관절염 침 치료의 무작위 대조 임상시험을 구두 발표하고, 턱관절·안면 부위의 자침 깊이에 관한 연구를 포스터로 발표했습니다.", url: "https://blog.naver.com/revolution1284/150181967122" },
+  { year: "2022", title: "우즈베키스탄 의사 대상 침법 강연", text: "2022년 8월 16일 타슈켄트에서 열린 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 강연했습니다. (블로그 게시: 2023년 6월)", url: "https://blog.naver.com/revolution1284/223121911632" },
+];
+
+export const clinicGallery = [
+  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능을 소개한 블로그 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
+  { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
+  { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
+];
+
 // 진료 안내 ─ 각각 /programs/<slug>/ 페이지가 생성됩니다.
 export const programs = [
   {
     slug: "spine-joint",
-    name: "비수술 척추·관절 · 교통사고 후유증",
-    summary: "디스크·협착증 등 척추와 관절 질환, 교통사고 후유증을 비수술로 치료합니다.",
-    intro: "3T MRI(대학병원 해상도) 영상의학과와 협력해 영상 소견을 확인하고, 五刺침법과 추나요법 등으로 치료합니다.",
+    name: "비수술 척추·관절",
+    summary: "디스크·협착증과 무릎·어깨 등 척추·관절의 불편함을 진료합니다.",
+    intro: "문진과 진찰, 필요한 영상 자료를 함께 살펴 치료 계획을 세웁니다. 영상의학과와 협력해 MRI·X-ray 검사를 연계하고, 상태에 따라 침·추나·한약 등을 상담합니다.",
     symptoms: ["허리·목 디스크, 척추관 협착증", "무릎 등 관절 통증", "교통사고 후 목·허리 통증과 불편감"],
     treatments: ["五刺침법", "추나요법", "한약 처방", "3T MRI 협력 영상 확인"],
-    faqs: [{ q: "MRI 검사는 어떻게 하나요?", a: "3T MRI(대학병원 해상도)를 갖춘 영상의학과와 협력하고 있어, 필요 시 영상 검사를 연계해 드립니다." }],
+    faqs: [{ q: "MRI 검사는 어떻게 하나요?", a: "진찰 후 검사가 필요하면 협력 영상의학과로 연계합니다. 기존 MRI·CT·X-ray 자료가 있다면 지참해 주세요." }],
+  },
+  {
+    slug: "traffic-accident",
+    name: "교통사고 후유증 · 자동차보험",
+    summary: "사고 후 생긴 목·허리 통증과 관절의 불편함을 살피고 치료 계획을 안내합니다.",
+    intro: "사고 경위와 증상, 기존 검사 자료를 확인합니다. 필요한 경우 영상의학과 검사를 연계하며, 진찰 결과에 따라 침·추나·물리치료·한약 등을 상담합니다. 자동차보험 적용 여부와 범위는 접수 및 진료 시 확인합니다.",
+    symptoms: ["교통사고 이후 목·허리 통증", "어깨·관절의 뻣뻣함과 움직임의 불편", "사고 후 지속되는 신체 불편감"],
+    treatments: ["침 치료·침전기자극술", "추나요법", "한방 물리치료", "진찰 후 한약·약침 상담", "필요 시 영상의학과 검사 연계"],
+    faqs: [{ q: "자동차보험 진료를 받으려면 무엇을 준비하나요?", a: "대인접수 후 사고접수번호와 자동차보험 담당자 연락처를 준비해 주세요. 이미 검사받은 영상이나 판독 자료도 가져오시면 도움이 됩니다." }],
   },
   {
     slug: "neck-shoulder-pain",
@@ -151,12 +196,12 @@ export const programs = [
   },
   {
     slug: "gongjindan",
-    name: "6g 변혁공진단 (집중력·성장·노화·면역력)",
-    summary: "집중력, 성장, 노화, 면역력 관리를 위해 6g 변혁공진단을 처방합니다.",
-    intro: "체질과 현재 상태를 진찰한 뒤 처방 여부와 복용 방법을 안내합니다. 공진단 처방 시 1시간 30분까지 무료주차가 가능합니다.",
+    name: "6.1g 변혁 공진단 · 맞춤 한약",
+    summary: "대표원장이 직접 조제·제환하는 변혁 공진단과 개인별 한약 처방을 상담합니다.",
+    intro: "변혁 공진단은 1환 약 6.0~6.1g으로, 사향·러시아산 녹용 분골·국내산 당귀와 산수유·벌꿀을 사용합니다. 체질과 현재 증상, 복용 중인 약을 확인한 뒤 처방 여부와 복용법을 안내합니다.",
     symptoms: ["집중력 저하", "성장기 관리", "노화로 인한 기력 저하", "면역력 저하"],
-    treatments: ["6g 변혁공진단", "진찰 후 맞춤 상담"],
-    faqs: [],
+    treatments: ["6.1g 변혁 공진단", "침향공진단", "맞춤 한약 처방", "진찰 후 복용 상담"],
+    faqs: [{ q: "공진단 비용은 얼마인가요?", a: "6.1g 변혁공진단은 30환에 270만원, 침향공진단은 30환에 60만원입니다." }],
   },
   {
     slug: "obesity",
@@ -187,17 +232,19 @@ export const faqs = [
   { q: "변혁 한의원은 어디에 있나요?", a: `${site.address.region} ${site.address.locality} ${site.address.street}에 있으며, ${site.directions}입니다.` },
   { q: "교통사고 후유증도 치료하나요?", a: "네, 교통사고 후 목·허리 통증 등 후유증을 비수술로 치료하며, 필요 시 3T MRI 영상의학과와 협력해 영상 검사를 연계합니다." },
   { q: "첩약 건강보험 시범사업 대상 질환은 무엇인가요?", a: "생리통, 알러지성 비염, 기능성 소화불량, 요추추간판탈출증입니다." },
-  { q: "6g 변혁공진단은 무엇인가요?", a: "집중력, 성장, 노화, 면역력 관리를 위해 처방하는 공진단입니다. 진찰 후 처방 여부와 복용법을 안내해 드립니다." },
+  { q: "변혁 공진단은 무엇인가요?", a: "변혁 대표원장이 직접 조제·제환하는 1환 약 6.0~6.1g의 공진단입니다. 진찰 후 개인의 상태에 맞춰 처방 여부와 복용법을 안내합니다." },
   { q: "예약이 꼭 필요한가요?", a: `예약 없이도 방문할 수 있지만 전화 예약(${site.phone})을 하시면 대기 시간이 줄어듭니다.` },
 ];
 
-// 비급여 진료비 ─ [입력필요] 실제 금액으로 교체
+// 비급여 진료비 ─ 2026-11-10 사용자 확정 금액. 나머지 항목은 입력 대기.
 export const fees = [
   { name: "초진 진찰료(급여)", price: "건강보험 기준", note: "" },
-  { name: "6g 변혁공진단", price: "[입력필요]", note: "" },
+  { name: "6.1g 변혁공진단", price: "270만원 / 30환", note: "" },
+  { name: "침향공진단", price: "60만원 / 30환", note: "" },
   { name: "한약(탕약)", price: "[입력필요]", note: "체질·증상에 따라 상이" },
   { name: "비만 탕약/환약", price: "[입력필요]", note: "" },
-  { name: "약침·추나 등 비급여 항목", price: "[입력필요]", note: "" },
+  { name: "약침·봉침 + 심부 물리치료", price: "2만원", note: "" },
+  { name: "추나 비급여", price: "[입력필요]", note: "" },
 ];
 
 // 건강 칼럼은 columns/*.md 파일로 관리합니다. (npm run admin 으로 글쓰기)
