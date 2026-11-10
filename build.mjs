@@ -408,7 +408,7 @@ write("treatments/index.html", layout({
   <div class="treatment-grid">${treatmentGuide.map((item, i) => `<section class="guide-card"><p class="kicker">CARE 0${i + 1}</p><h2>${esc(item.title)}</h2><p>${esc(item.desc)}</p><ul class="check">${item.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>`).join("")}</div>
   <h2 class="h2-sec">사진으로 보는 치료 장비</h2>
   <div class="equipment-gallery">${clinicGallery.map((g) => `<figure><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"><figcaption><h3>${esc(g.title)}</h3><p>${esc(g.caption)}</p></figcaption></figure>`).join("")}</div>
-  <p class="notice section-link">사진은 한의원 블로그에 게시된 기록입니다. 진료 후 개인별 상태에 맞는 치료 방법과 이용 가능한 장비를 안내합니다.</p>
+  <p class="notice section-link">사진은 한의원의 치료 장비 소개 자료입니다. 진료 후 개인별 상태에 맞는 치료 방법과 이용 가능한 장비를 안내합니다.</p>
 </div>`,
 }));
 

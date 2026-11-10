@@ -137,11 +137,11 @@ export const treatmentGuide = [
 export const research = [
   { year: "2006", title: "ICMART 미국 학술대회", text: "요통의 침 치료를 주제로 발표했습니다." },
   { year: "2007", title: "ICMART 스페인 학술대회", text: "퇴행성 슬관절염 침 치료의 무작위 대조 임상시험을 구두 발표하고, 턱관절·안면 부위의 자침 깊이에 관한 연구를 포스터로 발표했습니다." },
-  { year: "2022", title: "우즈베키스탄 의사 대상 침법 강연", text: "2022년 8월 16일 타슈켄트에서 열린 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 강연했습니다. (블로그 게시: 2023년 6월)" },
+  { year: "2022", title: "우즈베키스탄 의사 대상 침법 강연", text: "2022년 8월 16일 타슈켄트에서 열린 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 강연했습니다." },
 ];
 
 export const clinicGallery = [
-  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능을 소개한 블로그 사진 (2016)" },
+  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능 소개 사진 (2016)" },
   { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진 (2016)" },
   { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진 (2016)" },
 ];
