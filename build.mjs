@@ -90,7 +90,6 @@ const articleLD = (c) => ({
 
 // ───────── 공통 조각 ─────────
 const tel = `tel:${site.phone.replace(/[^0-9+]/g, "")}`;
-const blogUrl = (site.sameAs || []).find((u) => u.includes("blog."));
 const mapBtn = (cls = "btn btn-line") =>
   site.naverMapUrl ? `<a class="${cls}" href="${esc(site.naverMapUrl)}" target="_blank" rel="noopener">네이버 지도에서 보기</a>` : "";
 
@@ -239,7 +238,7 @@ ${body}
     <div>
       <h2>문의</h2>
       <p><a class="ft-tel" href="${tel}">${esc(site.phone)}</a></p>
-      <p>${site.naverMapUrl ? `<a href="${esc(site.naverMapUrl)}" target="_blank" rel="noopener">네이버 지도</a>` : ""}${blogUrl ? ` · <a href="${esc(blogUrl)}" target="_blank" rel="noopener">블로그</a>` : ""}</p>
+      <p>${site.naverMapUrl ? `<a href="${esc(site.naverMapUrl)}" target="_blank" rel="noopener">네이버 지도</a>` : ""}</p>
     </div>
   </div>
   <div class="ft-bottom">
@@ -363,8 +362,8 @@ write(
     .map((sec) => `<section class="cv-row"><h2>${esc(sec.h)}</h2><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`)
     .join("")}
     <section class="research-section" id="research"><p class="kicker">RESEARCH & EXCHANGE</p><h2>학술 발표와 교류</h2>
-    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정 · <a href="https://blog.naver.com/revolution1284/223121911632" target="_blank" rel="noopener">블로그 원문</a></figcaption></figure>
-    <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p><a href="${esc(r.url)}" target="_blank" rel="noopener">발표 기록 보기</a></li>`).join("")}</ol></section></div>
+    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정 ·</figcaption></figure>
+    <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol></section></div>
 </div>`,
   })
 );
@@ -393,7 +392,6 @@ write(
   <div class="guide-grid">${site.firstVisit.map((item) => `<section class="guide-card"><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></section>`).join("")}</div>
   <h2 class="h2-sec">지하철로 오시는 길</h2>
   <div class="guide-grid">${site.transit.map((item) => `<section class="guide-card"><h3>${esc(item.title)}</h3><p>${esc(item.text)}</p></section>`).join("")}</div>
-  <p class="section-link"><a href="${esc(site.locationBlog)}" target="_blank" rel="noopener">한의원 블로그 위치 안내 보기</a></p>
 </div>`,
   })
 );
@@ -409,7 +407,7 @@ write("treatments/index.html", layout({
   <div class="visit-grid"><div><p class="kicker">OUR APPROACH</p><h2>경험과 연구를 바탕으로<br>한 사람을 위한 진료</h2><p class="intro section-link">${esc(doctor.intro)}</p><p>증상과 검사 자료를 확인한 후 치료 방법, 진행 과정과 비용을 설명합니다.</p><a class="more" href="/about/#research">대표원장의 학술 활동 보기</a></div>${storefront("잠실푸르지오월드마크 2층 · 변혁 한의원 입구")}</div>
   <div class="treatment-grid">${treatmentGuide.map((item, i) => `<section class="guide-card"><p class="kicker">CARE 0${i + 1}</p><h2>${esc(item.title)}</h2><p>${esc(item.desc)}</p><ul class="check">${item.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>`).join("")}</div>
   <h2 class="h2-sec">사진으로 보는 치료 장비</h2>
-  <div class="equipment-gallery">${clinicGallery.map((g) => `<figure><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"><figcaption><h3>${esc(g.title)}</h3><p>${esc(g.caption)}</p><a href="${esc(g.url)}" target="_blank" rel="noopener">블로그 원문 보기</a></figcaption></figure>`).join("")}</div>
+  <div class="equipment-gallery">${clinicGallery.map((g) => `<figure><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"><figcaption><h3>${esc(g.title)}</h3><p>${esc(g.caption)}</p></figcaption></figure>`).join("")}</div>
   <p class="notice section-link">사진은 한의원 블로그에 게시된 기록입니다. 진료 후 개인별 상태에 맞는 치료 방법과 이용 가능한 장비를 안내합니다.</p>
 </div>`,
 }));
@@ -591,5 +589,5 @@ write(
   `# ${site.name}\n\n> ${metaDefaults.descHome}\n\n## 기본 정보\n${facts.map((f) => `- ${f}`).join("\n")}\n\n## 주요 페이지\n- [처음 오시는 분](${abs("/visit/")}): 진료시간, 예약, 오시는 길\n- [진료 안내](${abs("/programs/")}): 진료 항목\n- [비급여 진료비](${abs("/fees/")})\n- [자주 묻는 질문](${abs("/faq/")})\n- [원장 소개](${abs("/about/")})\n- [건강 칼럼](${abs("/columns/")})\n\n## 진료 항목\n${programs.map((p) => `- [${p.name}](${abs(`/programs/${p.slug}/`)}): ${p.summary}`).join("\n")}\n\n## 칼럼\n${columns.map((c) => `- [${c.title}](${abs(`/columns/${c.slug}/`)})`).join("\n")}\n`
 );
 
-if (existsSync("assets")) cpSync("assets", join(OUT, "assets"), { recursive: true });
+if (existsSync("assets")) cpSync("assets", join(OUT, "assets"), { recursive: true, filter: (source) => !source.endsWith("sources.json") });
 console.log(`빌드 완료: ${pages.length}개 페이지 → ${OUT}/`);

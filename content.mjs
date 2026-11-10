@@ -25,7 +25,6 @@ export const site = {
     { title: "척추·관절 진료", text: "보유하고 계신 MRI·CT·X-ray 영상과 판독 자료를 가져오시면 진료에 참고합니다." },
     { title: "증상과 복용약", text: "증상이 시작된 시점, 다친 경위, 현재 복용하는 약을 미리 정리해 주세요." },
   ],
-  locationBlog: "https://blog.naver.com/revolution1284/150187954866",
   parking:
     "주차 가능 — 잠실푸르지오월드마크 상가 지하 1층 주차장.",
   hours: [
@@ -38,7 +37,7 @@ export const site = {
   parkingShort: "주차 가능 · 상가 지하 1층 주차장", // 메인 화면 요약용
   reservation: "전화 예약 후 방문하시면 대기 시간이 줄어듭니다.",
   naverMapUrl: "https://map.naver.com/p/entry/place/34782696",
-  sameAs: ["https://blog.naver.com/revolution1284", "https://map.naver.com/p/entry/place/34782696"],
+  sameAs: ["https://map.naver.com/p/entry/place/34782696"],
   verification: { google: "", naver: "" }, // 서치콘솔/서치어드바이저 인증 코드
   photo: "/assets/clinic-front.webp", // 한의원 입구 사진
   photoAlt: "변혁 한의원 입구 — 침구의학과 전문의, 한의학 박사",
@@ -136,15 +135,15 @@ export const treatmentGuide = [
 ];
 
 export const research = [
-  { year: "2006", title: "ICMART 미국 학술대회", text: "요통의 침 치료를 주제로 발표했습니다.", url: "https://blog.naver.com/revolution1284/220634014054" },
-  { year: "2007", title: "ICMART 스페인 학술대회", text: "퇴행성 슬관절염 침 치료의 무작위 대조 임상시험을 구두 발표하고, 턱관절·안면 부위의 자침 깊이에 관한 연구를 포스터로 발표했습니다.", url: "https://blog.naver.com/revolution1284/150181967122" },
-  { year: "2022", title: "우즈베키스탄 의사 대상 침법 강연", text: "2022년 8월 16일 타슈켄트에서 열린 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 강연했습니다. (블로그 게시: 2023년 6월)", url: "https://blog.naver.com/revolution1284/223121911632" },
+  { year: "2006", title: "ICMART 미국 학술대회", text: "요통의 침 치료를 주제로 발표했습니다." },
+  { year: "2007", title: "ICMART 스페인 학술대회", text: "퇴행성 슬관절염 침 치료의 무작위 대조 임상시험을 구두 발표하고, 턱관절·안면 부위의 자침 깊이에 관한 연구를 포스터로 발표했습니다." },
+  { year: "2022", title: "우즈베키스탄 의사 대상 침법 강연", text: "2022년 8월 16일 타슈켄트에서 열린 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 강연했습니다. (블로그 게시: 2023년 6월)" },
 ];
 
 export const clinicGallery = [
-  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능을 소개한 블로그 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
-  { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
-  { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진 (2016)", url: "https://blog.naver.com/revolution1284/220682674535" },
+  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능을 소개한 블로그 사진 (2016)" },
+  { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진 (2016)" },
+  { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진 (2016)" },
 ];
 
 // 진료 안내 ─ 각각 /programs/<slug>/ 페이지가 생성됩니다.
