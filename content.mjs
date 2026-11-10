@@ -141,9 +141,9 @@ export const research = [
 ];
 
 export const clinicGallery = [
-  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능 소개 사진 (2016)" },
-  { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진 (2016)" },
-  { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진 (2016)" },
+  { image: "/assets/blog/chuna-2.jpg", title: "추나테이블", caption: "Traction·COX 기능 소개 사진" },
+  { image: "/assets/blog/chuna-5.jpg", title: "SONIX", caption: "음파운동진동기 소개 사진" },
+  { image: "/assets/blog/chuna-6.jpg", title: "Stylex", caption: "운동 장비 소개 사진" },
 ];
 
 // 진료 안내 ─ 각각 /programs/<slug>/ 페이지가 생성됩니다.

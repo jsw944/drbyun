@@ -362,7 +362,7 @@ write(
     .map((sec) => `<section class="cv-row"><h2>${esc(sec.h)}</h2><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`)
     .join("")}
     <section class="research-section" id="research"><p class="kicker">RESEARCH & EXCHANGE</p><h2>학술 발표와 교류</h2>
-    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정 ·</figcaption></figure>
+    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
     <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol></section></div>
 </div>`,
   })
