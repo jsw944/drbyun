@@ -268,7 +268,7 @@ write(
     <div class="hero-text">
       <p class="eyebrow">${esc(site.area[0])} ${esc(site.area[1])} · ${esc(site.directions)}</p>
       <h1><span class="h1-brand">${esc(site.name)}</span> ${esc(site.tagline)}</h1>
-      <p class="lead">${esc(doctor.intro)}</p>
+      <p class="lead">${esc(doctor.heroIntro)}</p>
       <div class="hero-cta">
         <a class="btn" href="${tel}">전화 예약 ${esc(site.phone)}</a>
         <a class="btn btn-line" href="/visit/">처음 오시는 분</a>
