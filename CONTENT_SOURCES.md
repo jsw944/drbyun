@@ -31,4 +31,10 @@
 
 ## 배포 파일
 
-`content.mjs`, `build.mjs`, `assets/style.css`, `assets/blog/`를 함께 커밋합니다. GitHub Actions 배포는 소스로부터 `dist/`를 자동 생성합니다. 이 문서는 편집 참고용이며 배포 결과물에 복사되지 않습니다.
+GitHub Actions 배포는 콘텐츠 모듈과 `assets/`를 포함한 소스로부터 `dist/`를 자동 생성합니다. 이 문서는 편집 참고용이며 배포 결과물에 복사되지 않습니다.
+
+## 원장 소개 개편
+
+- 인사말, 약력, 전문의 안내는 사용자가 제공한 `Screenshot_20250625_230756_NAVER.jpg`, `Screenshot_20250625_230806_NAVER.jpg`, `Screenshot_20250625_230834_NAVER.jpg`를 각각 기준으로 작성했습니다. 논문 제목과 서지는 같은 원문이 담긴 `변혁한의원 내용.txt`와 대조했습니다.
+- `assets/doctor-about/`는 제공된 스크린샷에서 사진 영역만 잘라낸 이미지입니다. 상단 메뉴와 하단 연락처는 이미지에서 제외했습니다.
+- 전문의 페이지는 원장의 수련 과정과 자격 취득을 소개합니다. 수련 기간과 시험 방법은 [한의사전문의 수련규정 제5조](https://www.law.go.kr/LSW/lsInfoP.do?lsId=005495)와 [시행규칙 제12조](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1017377983)를 참조했습니다.

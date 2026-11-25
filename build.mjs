@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync, cpSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, specialistFaq, faqs, fees, metaDefaults } from "./content.mjs";
+import { greeting, profileHighlights, publications, specialistTraining } from "./about-content.mjs";
 import { loadColumns } from "./columns.mjs";
 
 const columns = loadColumns();
@@ -98,13 +99,13 @@ const mapBtn = (cls = "btn btn-line") =>
   site.naverMapUrl ? `<a class="${cls}" href="${esc(site.naverMapUrl)}" target="_blank" rel="noopener">네이버 지도에서 보기</a>` : "";
 
 const aboutMenu = {
-  greeting: "치료에 임하는 인사말",
-  profile: "약력",
-  specialist: "침구의학 전문의",
+  greeting: { path: "/about/", label: "치료에 임하는 인사말" },
+  profile: { path: "/about/profile/", label: "약력" },
+  specialist: { path: "/about/specialist/", label: "침구의학과 전문의" },
 };
 const nav = [
   ["/programs/", "진료 안내"],
-  ["/about/", "원장 소개", aboutMenu],
+  [aboutMenu.greeting.path, "원장 소개"],
   ["/treatments/", "치료·장비"],
   ["/visit/", "처음 오시는 분"],
   ["/fees/", "비급여 진료비"],
@@ -112,21 +113,13 @@ const nav = [
   ["/faq/", "자주 묻는 질문"],
 ];
 
-function primaryNav(path) {
-  return nav.map(([href, label, sections]) => {
-    const current = path.startsWith(href);
-    if (!sections) {
-      return `<li><a class="nav-link" href="${href}"${current ? ' aria-current="page"' : ""}>${esc(label)}</a></li>`;
-    }
-    const links = Object.entries(sections)
-      .map(([id, text]) => `<li><a href="${href}#${id}">${esc(text)}</a></li>`)
-      .join("");
-    return `<li><details class="nav-disclosure">
-      <summary class="nav-link"${current ? ' aria-current="true"' : ""}>${esc(label)}</summary>
-      <ul class="nav-children">${links}</ul>
-    </details></li>`;
-  }).join("");
-}
+const primaryNav = (path) => nav.map(([href, label]) =>
+  `<li><a class="nav-link" href="${href}"${path.startsWith(href) ? ` aria-current="${path === href ? "page" : "true"}"` : ""}>${esc(label)}</a></li>`
+).join("");
+
+const aboutNav = (path) => `<nav class="about-nav" aria-label="원장 소개 하위 메뉴"><ul class="wrap">${Object.values(aboutMenu).map((page) =>
+  `<li><a href="${page.path}"${path === page.path ? ' aria-current="page"' : ""}>${esc(page.label)}</a></li>`
+).join("")}</ul></nav>`;
 
 const hoursList = () =>
   `<ul class="hours">${site.hours
@@ -147,7 +140,7 @@ const secHead = (kicker, title, desc = "", id = "") =>
   `<div class="sec-head"><p class="kicker">${kicker}</p><h2${id ? ` id="${id}"` : ""}>${title}</h2>${desc ? `<p class="sec-desc">${desc}</p>` : ""}</div>`;
 
 const pageHead = (kicker, title, lead = "") =>
-  `<section class="page-head"><div class="wrap"><p class="kicker">${kicker}</p><h1>${esc(title)}</h1>${lead ? `<p class="lead">${esc(lead)}</p>` : ""}</div></section>`;
+  `<section class="page-head"><div class="wrap">${kicker ? `<p class="kicker">${kicker}</p>` : ""}<h1>${esc(title)}</h1>${lead ? `<p class="lead">${esc(lead)}</p>` : ""}</div></section>`;
 
 const faqHtml = (list, open = false) =>
   `<div class="acc">${list.map((f) => `<details${open ? " open" : ""}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("\n")}</div>`;
@@ -244,6 +237,7 @@ ${all.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</scrip
   <nav aria-label="주 메뉴"><ul class="nav-items">${primaryNav(path)}</ul></nav>
   <a class="call" href="${tel}">${esc(site.phone)}</a>
 </div></header>
+${path.startsWith(aboutMenu.greeting.path) ? aboutNav(path) : ""}
 ${crumbBar}
 <main id="main">
 ${body}
@@ -272,21 +266,6 @@ ${body}
   </div>
 </div></footer>
 <a class="fab" href="${tel}">전화 예약 ${esc(site.phone)}</a>
-<script>
-  for (const disclosure of document.querySelectorAll(".nav-disclosure")) {
-    document.addEventListener("click", (event) => {
-      if (!disclosure.contains(event.target) || event.target.closest(".nav-children a")) {
-        disclosure.open = false;
-      }
-    });
-    disclosure.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && disclosure.open) {
-        disclosure.open = false;
-        disclosure.querySelector("summary").focus();
-      }
-    });
-  }
-</script>
 </body>
 </html>`;
 }
@@ -347,7 +326,7 @@ ${features.length ? `<section class="sec dark" aria-labelledby="sp-h"><div class
     <p class="doc-lic">${esc(doctor.license)}</p>
     <p class="lede">${esc(doctor.intro)}</p>
     <ul class="check cols">${careerTop.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
-    <a class="more" href="/about/">약력 전체 보기</a>
+    <a class="more" href="${aboutMenu.profile.path}">약력 전체 보기</a>
   </div>
 </div></section>
 
@@ -381,33 +360,94 @@ ${statusScript}`,
 );
 
 // 원장 소개
+const aboutPhoto = (image, alt, width, height, loading = "lazy") =>
+  `<img src="/assets/doctor-about/${image}.jpg" alt="${esc(alt)}" width="${width}" height="${height}" loading="${loading}">`;
+const aboutCrumbs = [["홈", "/"], ["원장 소개", aboutMenu.greeting.path]];
+
 write(
   "about/index.html",
   layout({
-    path: "/about/",
-    title: `${doctor.name} ${doctor.title} 소개 | ${site.name}`,
-    desc: `${site.name} ${doctor.name} ${doctor.title}의 약력과 진료 철학, 전문 분야를 소개합니다.`,
+    path: aboutMenu.greeting.path,
+    title: `${aboutMenu.greeting.label} | ${doctor.name} ${doctor.title} | ${site.name}`,
+    desc: `${site.name} ${doctor.name} ${doctor.title}의 인사말과 진료 철학입니다.`,
     ld: [doctorLD()],
-    crumbs: [["홈", "/"], ["원장 소개", "/about/"]],
-    body: `${pageHead("DOCTOR", `${doctor.name} ${doctor.title}`, doctor.intro)}
-<div class="wrap page-body about-grid">
-  <aside class="doc-card">
-    ${arch(false)}
-    <p class="doc-name">${esc(doctor.name)}<small>${esc(doctor.title)}</small></p>
-    <p class="doc-lic">${esc(doctor.license)}</p>
-    <ul class="tags">${doctor.specialties.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
-    <a class="btn" href="${tel}">전화 예약</a>
-  </aside>
-  <div class="cv">
-    <section class="doctor-message" id="greeting" aria-label="${esc(aboutMenu.greeting)}"><p class="kicker">${esc(doctor.vision)}</p><h2>온 가족의 든든한 주치의</h2><p>${esc(doctor.philosophy)}</p><p class="signature">한의학 박사 · 침구의학과 전문의 변혁</p></section>
-    <section class="doctor-profile" id="profile">
-      <h2>${esc(aboutMenu.profile)}</h2>
-      ${doctor.sections.map((sec) => `<section class="cv-row"><h3>${esc(sec.h)}</h3><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`).join("")}
+    crumbs: aboutCrumbs,
+    body: `<script>
+  function openLegacyAboutLink() {
+    const target = {
+      "#profile": "profile/#profile",
+      "#specialist": "specialist/#specialist",
+      "#research": "profile/#research",
+    }[location.hash];
+    if (target) location.replace(target);
+  }
+  openLegacyAboutLink();
+  window.addEventListener("hashchange", openLegacyAboutLink);
+</script>
+${pageHead("", aboutMenu.greeting.label)}
+<div class="wrap narrow about-content about-greeting" id="greeting">
+  <div id="doctor">
+    <figure class="greeting-photo">${aboutPhoto("greeting-treatment", "변혁 원장의 추나 진료 모습", 921, 667, "eager")}</figure>
+    ${greeting.map((paragraph) => `<p class="greeting-paragraph">${esc(paragraph)}</p>`).join("")}
+    <p class="greeting-signature"><span>${esc(doctor.license)}</span> <strong>${esc(doctor.name)} ${esc(doctor.title)}</strong></p>
+  </div>
+</div>`,
+  })
+);
+
+write(
+  "about/profile/index.html",
+  layout({
+    path: aboutMenu.profile.path,
+    title: `${aboutMenu.profile.label} | ${doctor.name} ${doctor.title} | ${site.name}`,
+    desc: `${doctor.name} ${doctor.title}의 학력, 임상 경력, 학회 활동과 발표 논문을 소개합니다.`,
+    crumbs: [...aboutCrumbs, [aboutMenu.profile.label, aboutMenu.profile.path]],
+    body: `${pageHead("", aboutMenu.profile.label)}
+<div class="wrap about-content" id="profile">
+  <section aria-labelledby="profile-highlights">
+    <h2 id="profile-highlights">주요 약력</h2>
+    <ul class="profile-highlights">${profileHighlights.map(({ title, text, image, alt }) => `<li>
+      ${aboutPhoto(image, alt, 204, 204)}
+      <div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>
+    </li>`).join("")}</ul>
+  </section>
+  <div class="profile-detail">
+    <section class="profile-media">
+      ${aboutPhoto("profile-tv", "변혁 원장이 출연한 TV 방송 네 편의 화면", 458, 459)}
+      <div><h2>TV 방송 출연</h2><ul class="check">${doctor.broadcast.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     </section>
-    <section class="cv-row" id="specialist"><h2>${esc(aboutMenu.specialist)}</h2><p>${esc(specialistFaq.a)}</p></section>
-    <section class="research-section" id="research"><p class="kicker">RESEARCH & EXCHANGE</p><h2>학술 발표와 교류</h2>
-    <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
-    <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol></section></div>
+    ${doctor.sections.map((section) => `<section class="cv-row"><h2>${esc(section.h)}</h2><ul class="check">${section.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></section>`).join("")}
+    <section class="research-section" id="research">
+      <h2>학술 발표와 교류</h2>
+      <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
+      <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol>
+    </section>
+    <section class="publication-section">
+      <h2>발표 논문</h2>
+      <ol class="publications">${publications.map(([title, reference]) => `<li><p>${esc(title)}</p><span>${esc(reference)}</span></li>`).join("")}</ol>
+    </section>
+  </div>
+</div>`,
+  })
+);
+
+write(
+  "about/specialist/index.html",
+  layout({
+    path: aboutMenu.specialist.path,
+    title: `${aboutMenu.specialist.label} | ${doctor.name} ${doctor.title} | ${site.name}`,
+    desc: `${doctor.name} ${doctor.title}의 침구의학과 수련과 전문의 자격 취득 과정입니다.`,
+    crumbs: [...aboutCrumbs, [aboutMenu.specialist.label, aboutMenu.specialist.path]],
+    body: `${pageHead("", aboutMenu.specialist.label)}
+<div class="wrap narrow about-content" id="specialist">
+  <p class="intro">${esc(specialistFaq.a)}</p>
+  <section class="specialist-training">
+    <h2>침구의학과 전문의가 되기까지</h2>
+    <ol class="training-list">${specialistTraining.map(({ title, text, image, alt }) => `<li>
+      ${aboutPhoto(image, alt, 316, 316)}
+      <div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>
+    </li>`).join("")}</ol>
+  </section>
 </div>`,
   })
 );
@@ -448,7 +488,7 @@ write("treatments/index.html", layout({
   crumbs: [["홈", "/"], ["치료·장비", "/treatments/"]],
   body: `${pageHead("TREATMENT & CARE", "진찰에서 치료까지", "몸의 상태를 먼저 살피고, 필요한 치료를 함께 결정합니다.")}
 <div class="wrap page-body">
-  <div class="visit-grid"><div><p class="kicker">OUR APPROACH</p><h2>경험과 연구를 바탕으로<br>한 사람을 위한 진료</h2><p class="intro section-link">${esc(doctor.intro)}</p><p>증상과 검사 자료를 확인한 후 치료 방법, 진행 과정과 비용을 설명합니다.</p><a class="more" href="/about/#research">대표원장의 학술 활동 보기</a></div>${storefront("잠실푸르지오월드마크 2층 · 변혁 한의원 입구")}</div>
+  <div class="visit-grid"><div><p class="kicker">OUR APPROACH</p><h2>경험과 연구를 바탕으로<br>한 사람을 위한 진료</h2><p class="intro section-link">${esc(doctor.intro)}</p><p>증상과 검사 자료를 확인한 후 치료 방법, 진행 과정과 비용을 설명합니다.</p><a class="more" href="${aboutMenu.profile.path}#research">대표원장의 학술 활동 보기</a></div>${storefront("잠실푸르지오월드마크 2층 · 변혁 한의원 입구")}</div>
   <div class="treatment-grid">${treatmentGuide.map((item, i) => `<section class="guide-card"><p class="kicker">CARE 0${i + 1}</p><h2>${esc(item.title)}</h2><p>${esc(item.desc)}</p><ul class="check">${item.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>`).join("")}</div>
   <h2 class="h2-sec">사진으로 보는 치료 장비</h2>
   <div class="equipment-gallery">${clinicGallery.map((g) => `<figure><img src="${esc(g.image)}" alt="${esc(g.title)}" loading="lazy"><figcaption><h3>${esc(g.title)}</h3><p>${esc(g.caption)}</p></figcaption></figure>`).join("")}</div>

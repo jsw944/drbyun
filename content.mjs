@@ -53,13 +53,12 @@ export const doctor = {
   photo: "/assets/doctor.png",
   intro: "한의학 박사이자 침구의학과 전문의 변혁 원장이 직접 진료합니다. 임상 경험과 연구를 바탕으로 척추·관절, 교통사고 후유증, 안면마비를 비롯한 몸의 불편함을 함께 살핍니다.",
   heroIntro: "한의학 박사이자 침구의학과 전문의인 변혁 원장이 직접 진료합니다. 임상 경험과 연구를 바탕으로 척추·관절, 교통사고 후유증, 안면마비 등을 전문적으로 치료합니다.",
-  philosophy: "현재의 지식과 능력에 안주하지 않고, 지속적인 노력과 배움으로 저를 믿고 찾아주신 분들의 심신이 건강해지는 변화를 돕겠습니다. 온 가족이 믿고 찾을 수 있는 든든한 주치의가 되고자 합니다.",
-  vision: "Beyond Healing",
   highlights: ["침구의학과 전문의", "한의학 박사", "대한한방비만학회 인증 한의원", "3T MRI 영상의학과 협력"], // 메인 화면 배지
   specialties: ["침구의학", "비수술 척추·관절", "교통사고 후유증", "안면마비", "비만"],
   alumniOf: "동국대학교 한의과대학",
   memberOf: ["대한침구의학회", "대한한방비만학회", "한방척추관절학회", "대한스포츠한의학회", "척추신경추나의학회", "대한한의부항학회", "대한한의학회"],
-  // 원장 소개 페이지에 그대로 출력되는 이력 묶음
+  broadcast: ["KBS 뉴스9 ‘겨울 운동 이렇게’", "SBS 현장21 ‘기자가 만나는 세상 – 몸짱, 그 불편한 진실’", "KBS2 굿모닝 대한민국 ‘잘못된 마사지’", "GTV ‘활력충전 건강이 보인다’"],
+  // 약력 페이지에 출력되는 이력 묶음
   sections: [
     { h: "자격", items: ["한의학 박사", "침구의학과 전문의 (보건복지부)", "대한한방비만학회 인증 한의원"] },
     {
@@ -71,8 +70,12 @@ export const doctor = {
         "KOICA 우즈베키스탄 사마르칸트 봉사팀장 역임",
         "동국참사랑봉사단 스리랑카 의료봉사 한방 단장 역임",
         "대한한방전공의협의회 운영위원 역임",
+        "대한한의약해외의료봉사단 이사 역임",
+        "『잠실 자생인』 선정 표창",
         "동국대학교 부속 3개 한방병원 전공의협의회 의국장 대표 역임",
+        "동국대학교병원·한방병원 인턴 교육부장 역임",
         "네이버 지식iN 상담 한의사 역임 (대한한의사협회-NHN)",
+        "동국대학교 일산한방병원 침구의학과 연구원 역임",
         "KOMSTA 한의과대학생 임상교육 지정 한의원",
         "프로야구 두산 협력 한의원 (2023~26년)",
       ],
@@ -97,18 +100,6 @@ export const doctor = {
         "추나테이블 자문의 추나요법 (한국생산기술연구원 01M-707 임상 자문)",
       ],
     },
-    {
-      h: "학위 및 논문",
-      items: [
-        "박사(2010.12): 반복적 격강구(隔薑灸) 시술이 심부 열전달에 미치는 영향",
-        "석사(2006.08): 유근피(楡根皮) 약침이 LPS 유발 류마티스 관절염 모델에서 MIF 활성 억제에 미치는 영향",
-        "SCI(E) Journal of Visualization: Temperature distribution in deep tissue phantom during laser irradiation at 1064 nm measured by thermocouples and thermal imaging technique",
-        "대한스포츠한의학회지 (2010): Proper Acupuncture on GV-3, B-24, and B-52 under X-ray Fluoroscopy for Low Back Pain",
-        "대한침구학회지 (2007): Determination of Safe Needling Depth via X-ray at TE17(Yifeng) and ST7(Xiaguan)",
-        "대한한의학회지 (2006): Individualized Traditional Korean Acupuncture for Knee Osteoarthritis: a Protocol for a Randomized Controlled Trial",
-      ],
-    },
-    { h: "방송 출연", items: ["KBS 뉴스9: 겨울 운동 이렇게", "SBS 현장21: 기자가 만나는 세상 - 몸짱, 그 불편한 진실", "KBS2 굿모닝 대한민국: 잘못된 마사지", "GTV 활력충전 건강이 보인다"] },
     {
       h: "도서·학회 활동",
       items: [
