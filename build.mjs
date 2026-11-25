@@ -1,5 +1,6 @@
 // 사용법: node build.mjs  → dist/ 에 정적 사이트 생성
-import { mkdirSync, writeFileSync, cpSync, rmSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdirSync, readFileSync, writeFileSync, cpSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, specialistFaq, faqs, fees, metaDefaults } from "./content.mjs";
 import { loadColumns } from "./columns.mjs";
@@ -11,6 +12,9 @@ if (process.env.SITE_URL) site.url = process.env.SITE_URL.replace(/\/+$/, "");
 const basePath = new URL(site.url).pathname.replace(/\/+$/, "");
 
 const OUT = "dist";
+const stylesheet = readFileSync("assets/style.css");
+const styleVersion = createHash("sha256").update(stylesheet).digest("hex").slice(0, 12);
+const stylePath = `assets/style.${styleVersion}.css`;
 const esc = (s = "") => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const abs = (p) => site.url + p;
 const addr = site.address;
@@ -230,7 +234,7 @@ ${site.photo || doctor.photo ? `<meta property="og:image" content="${abs(doctor.
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/${stylePath}">
 ${all.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -630,4 +634,5 @@ write(
 );
 
 if (existsSync("assets")) cpSync("assets", join(OUT, "assets"), { recursive: true, filter: (source) => !source.endsWith("sources.json") });
+write(stylePath, stylesheet);
 console.log(`빌드 완료: ${pages.length}개 페이지 → ${OUT}/`);
