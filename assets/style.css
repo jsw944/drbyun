@@ -293,6 +293,17 @@ address{font-style:normal}
 .guide-card h3{font-size:20px;margin-bottom:12px}
 .guide-card p{color:var(--ink-2)}
 .guide-card p:last-child{margin-bottom:0}
+.approach-body h2{margin-bottom:14px;font-size:clamp(23px,3vw,30px);color:var(--navy)}
+.approach-body>section>p{color:var(--ink-2)}
+.approach-section{margin-top:clamp(36px,6vw,64px);padding-top:clamp(24px,4vw,40px);border-top:1px solid var(--line-2)}
+.approach-records{display:grid;gap:22px;margin-top:26px}
+.approach-photo{margin:22px 0 0}
+.approach-photo img{margin-inline:auto;border-radius:var(--r)}
+.approach-photo figcaption{margin-top:10px;font-size:14px;color:var(--mut)}
+.approach-photo figcaption a{margin-inline-start:10px;white-space:nowrap}
+.approach-photos{margin-top:22px}
+.approach-photos .approach-photo{margin:0}
+.approach-links{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px}
 .research-section{margin-top:42px}
 .research-photo{margin:28px 0}.research-photo img{width:100%;border-radius:var(--r)}
 .research-photo figcaption{margin-top:12px;font-size:14px;color:var(--mut)}

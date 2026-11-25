@@ -38,3 +38,8 @@ GitHub Actions 배포는 콘텐츠 모듈과 `assets/`를 포함한 소스로부
 - 인사말, 약력, 전문의 안내는 사용자가 제공한 `Screenshot_20250625_230756_NAVER.jpg`, `Screenshot_20250625_230806_NAVER.jpg`, `Screenshot_20250625_230834_NAVER.jpg`를 각각 기준으로 작성했습니다. 논문 제목과 서지는 같은 원문이 담긴 `변혁한의원 내용.txt`와 대조했습니다.
 - `assets/doctor-about/`는 제공된 스크린샷에서 사진 영역만 잘라낸 이미지입니다. 상단 메뉴와 하단 연락처는 이미지에서 제외했습니다.
 - 전문의 페이지는 원장의 수련 과정과 자격 취득을 소개합니다. 수련 기간과 시험 방법은 [한의사전문의 수련규정 제5조](https://www.law.go.kr/LSW/lsInfoP.do?lsId=005495)와 [시행규칙 제12조](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1017377983)를 참조했습니다.
+
+## 무엇이 다른가요
+
+- 침술 페이지는 `Screenshot_20250625_230849_NAVER.jpg`를 바탕으로 타슈켄트 강연, 워싱턴 발표, 바르셀로나 발표 자료를 정리했습니다. 바르셀로나의 구두·포스터 발표는 [ICMART 2007 공식 프로그램](https://icmart.org/wp-content/uploads/2021/06/icmart-congress-2007-programme.pdf)과 대조했습니다.
+- 공진단·한약 페이지는 같은 폴더의 `Screenshot_20250625_230900_NAVER.jpg`, `Screenshot_20250625_230914_NAVER.jpg`와 기존 진료 안내를 함께 참고했습니다. `assets/approach/`의 포장과 품질보증 자료는 과거 소개 이미지이며, 기존 홈페이지의 연락처와 당시 사향 함량·인증 문구는 현재 안내 문구로 옮기지 않았습니다.

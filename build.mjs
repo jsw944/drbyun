@@ -4,6 +4,7 @@ import { mkdirSync, readFileSync, writeFileSync, cpSync, rmSync, existsSync } fr
 import { dirname, join } from "node:path";
 import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, specialistFaq, faqs, fees, metaDefaults } from "./content.mjs";
 import { greeting, profileHighlights, publications, specialistTraining } from "./about-content.mjs";
+import { tashkentPhoto, icmartProgramme, acupuncturePresentations, gongjindanPhotos, herbalPhotos } from "./approach-content.mjs";
 import { loadColumns } from "./columns.mjs";
 
 const columns = loadColumns();
@@ -483,8 +484,16 @@ write(
 
 // 무엇이 다른가요?
 const approachCrumbs = [["홈", "/"], [approachLabel, approachMenu.acupuncture.path]];
-const acupunctureDescription = "변혁 원장이 국제학회에서 발표한 침 치료 연구와 해외 강연을 소개합니다.";
+const acupunctureDescription = "변혁 원장의 ICMART 국제학회 발표와 우즈베키스탄 한의약 연수 강연을 소개합니다.";
 const gongjindan = programs.find((program) => program.slug === "gongjindan");
+
+function approachFigure({ file, alt, width, height, caption }, { enlarge = false, loading = "lazy" } = {}) {
+  const src = `/assets/approach/${file}.jpg`;
+  return `<figure class="approach-photo">
+    <img src="${src}" alt="${esc(alt)}" width="${width}" height="${height}" loading="${loading}">
+    <figcaption>${esc(caption)}${enlarge ? ` <a href="${src}" aria-label="${esc(caption)} 크게 보기">크게 보기</a>` : ""}</figcaption>
+  </figure>`;
+}
 
 write(
   "approach/index.html",
@@ -494,10 +503,26 @@ write(
     desc: acupunctureDescription,
     crumbs: approachCrumbs,
     body: `${pageHead("", approachMenu.acupuncture.label, acupunctureDescription)}
-<div class="wrap narrow page-body">
-  <h2>학술 발표와 강연</h2>
-  ${academicHistory}
-  <a class="more" href="${aboutMenu.profile.path}#research">원장의 학술 활동과 약력 보기</a>
+<div class="wrap narrow page-body approach-body">
+  <section>
+    <h2>우즈베키스탄 타슈켄트 한의약 연수</h2>
+    <p>2022년 8월 16일, 변혁 원장은 제12회 한의약 연수 과정에서 현지 의사들을 대상으로 침법을 강연했습니다.</p>
+    ${approachFigure(tashkentPhoto, { loading: "eager" })}
+  </section>
+  <section class="approach-section">
+    <h2>ICMART 국제학회 발표</h2>
+    <p>변혁 원장은 미국 워싱턴과 스페인 바르셀로나의 ICMART 학술대회에서 요통, 귀 주위와 턱 부위의 자침 깊이, 무릎 퇴행성 관절염을 주제로 발표했습니다.</p>
+    <div class="approach-records">${acupuncturePresentations.map((presentation) => `<article class="guide-card">
+      <p class="kicker">${esc(presentation.location)}</p>
+      <h3>${esc(presentation.title)}</h3>
+      <p>${esc(presentation.text)}</p>
+      ${presentation.photos.map((photo) => approachFigure(photo, { enlarge: true })).join("")}
+    </article>`).join("")}</div>
+    <div class="approach-links">
+      <a class="more" href="${icmartProgramme}">2007년 ICMART 공식 프로그램 보기</a>
+      <a class="more" href="${aboutMenu.profile.path}#research">원장의 학술 활동과 약력 보기</a>
+    </div>
+  </section>
 </div>`,
   })
 );
@@ -510,16 +535,18 @@ write(
     desc: gongjindan.summary,
     crumbs: [...approachCrumbs, [approachMenu.herbalMedicine.label, approachMenu.herbalMedicine.path]],
     body: `${pageHead("", "6.1g 변혁공진단과 한약", gongjindan.summary)}
-<div class="wrap narrow page-body">
-  <div class="guide-card">
+<div class="wrap narrow page-body approach-body">
+  <section>
     <h2>6.1g 변혁공진단</h2>
     <p>${esc(gongjindan.intro)}</p>
-    <a class="more" href="/fees/">비급여 진료비 보기</a>
-  </div>
-  <section class="section-link guide-card">
-    <h2>맞춤 한약 처방</h2>
-    <p>변혁 원장이 증상과 체질, 복용 중인 약을 살핀 뒤 한약 처방과 복용 방법을 안내합니다.</p>
-    <a class="more" href="/programs/gongjindan/">공진단·한약 진료 안내 보기</a>
+    <div class="guide-grid approach-photos">${gongjindanPhotos.map((photo) => approachFigure(photo)).join("")}</div>
+    <div class="approach-links"><a class="more" href="/fees/">비급여 진료비 보기</a></div>
+  </section>
+  <section class="approach-section">
+    <h2>맞춤 한약과 한약재</h2>
+    <p>변혁 원장이 진찰을 통해 증상과 체질, 복용 중인 약을 살핀 뒤 한약 처방과 복용 방법을 안내합니다.</p>
+    <div class="guide-grid approach-photos">${herbalPhotos.map((photo) => approachFigure(photo)).join("")}</div>
+    <div class="approach-links"><a class="more" href="/programs/gongjindan/">공진단·한약 진료 안내 보기</a></div>
   </section>
 </div>`,
   })
