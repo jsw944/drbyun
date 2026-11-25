@@ -103,9 +103,15 @@ const aboutMenu = {
   profile: { path: "/about/profile/", label: "약력" },
   specialist: { path: "/about/specialist/", label: "침구의학과 전문의" },
 };
+const approachLabel = "무엇이 다른가요?";
+const approachMenu = {
+  acupuncture: { path: "/approach/", label: "국제학회에서 발표한 침술" },
+  herbalMedicine: { path: "/approach/herbal-medicine/", label: "변혁공진단·한약" },
+};
 const nav = [
   ["/programs/", "진료 안내"],
-  [aboutMenu.greeting.path, "원장 소개"],
+  [aboutMenu.greeting.path, "원장 소개", aboutMenu],
+  [approachMenu.acupuncture.path, approachLabel, approachMenu],
   ["/treatments/", "치료·장비"],
   ["/visit/", "처음 오시는 분"],
   ["/fees/", "비급여 진료비"],
@@ -117,26 +123,29 @@ const primaryNav = (path) => nav.map(([href, label]) =>
   `<li><a class="nav-link" href="${href}"${path.startsWith(href) ? ` aria-current="${path === href ? "page" : "true"}"` : ""}>${esc(label)}</a></li>`
 ).join("");
 
-const aboutNav = (path) => `<nav class="about-nav" aria-label="원장 소개 하위 메뉴"><ul class="wrap">${Object.values(aboutMenu).map((page) =>
+function sectionNav(label, pages, path) {
+  const links = Object.values(pages);
+  return `<nav class="section-nav" aria-label="${esc(label)} 하위 메뉴" data-menu-size="${links.length}"><ul class="wrap">${links.map((page) =>
   `<li><a href="${page.path}"${path === page.path ? ' aria-current="page"' : ""}>${esc(page.label)}</a></li>`
 ).join("")}</ul></nav>
 <script>
   {
     const parentLink = document.querySelector(".hd .nav-link[aria-current]");
-    const menu = document.querySelector(".about-nav ul");
-    function alignAboutMenu() {
+    const menu = document.querySelector(".section-nav ul");
+    function alignSectionMenu() {
       const first = menu.firstElementChild.getBoundingClientRect();
       const last = menu.lastElementChild.getBoundingClientRect();
       const rightPadding = parseFloat(getComputedStyle(menu).paddingInlineEnd);
       const available = menu.clientWidth - (last.right - first.left) - rightPadding;
       const requested = parentLink.getBoundingClientRect().left - menu.getBoundingClientRect().left;
-      menu.style.setProperty("--about-nav-start", Math.max(0, Math.min(requested, available)) + "px");
+      menu.style.setProperty("--section-nav-start", Math.max(0, Math.min(requested, available)) + "px");
     }
-    alignAboutMenu();
-    new ResizeObserver(alignAboutMenu).observe(menu, { box: "border-box" });
-    document.fonts.ready.then(alignAboutMenu);
+    alignSectionMenu();
+    new ResizeObserver(alignSectionMenu).observe(menu, { box: "border-box" });
+    document.fonts.ready.then(alignSectionMenu);
   }
 </script>`;
+}
 
 const hoursList = () =>
   `<ul class="hours">${site.hours
@@ -208,9 +217,9 @@ function layout({ path, title, desc, body, ld = [], type = "website", crumbs, no
   const url = abs(path);
   const all = [...ld, ...(crumbs ? [crumbLD(crumbs)] : [])];
   pages.push({ path, lastmod: today });
-  const isAbout = path.startsWith(aboutMenu.greeting.path);
+  const [, sectionLabel, sectionPages] = nav.find(([href]) => path.startsWith(href)) ?? [];
   const crumbBar =
-    !isAbout && crumbs && crumbs.length > 1
+    !sectionPages && crumbs && crumbs.length > 1
       ? `<div class="crumbs-bar"><nav class="wrap crumbs" aria-label="경로">${crumbs
           .map(([n, p], i) => (i < crumbs.length - 1 ? `<a href="${p}">${esc(n)}</a><i>/</i>` : `<span aria-current="page">${esc(n)}</span>`))
           .join("")}</nav></div>`
@@ -255,7 +264,7 @@ ${all.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</scrip
   <nav aria-label="주 메뉴"><ul class="nav-items">${primaryNav(path)}</ul></nav>
   <a class="call" href="${tel}">${esc(site.phone)}</a>
 </div></header>
-${isAbout ? aboutNav(path) : ""}
+${sectionPages ? sectionNav(sectionLabel, sectionPages, path) : ""}
 ${crumbBar}
 <main id="main">
 ${body}
@@ -381,6 +390,9 @@ ${statusScript}`,
 const aboutPhoto = (image, alt, width, height, loading = "lazy") =>
   `<img src="/assets/doctor-about/${image}.jpg" alt="${esc(alt)}" width="${width}" height="${height}" loading="${loading}">`;
 const aboutCrumbs = [["홈", "/"], ["원장 소개", aboutMenu.greeting.path]];
+const academicHistory = `
+  <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
+  <ol class="research-list">${research.map((entry) => `<li><span class="kicker">${esc(entry.year)}</span><h3>${esc(entry.title)}</h3><p>${esc(entry.text)}</p></li>`).join("")}</ol>`;
 
 write(
   "about/index.html",
@@ -437,8 +449,7 @@ write(
     ${doctor.sections.map((section) => `<section class="cv-row"><h2>${esc(section.h)}</h2><ul class="check">${section.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></section>`).join("")}
     <section class="research-section" id="research">
       <h2>학술 발표와 교류</h2>
-      <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
-      <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol>
+      ${academicHistory}
     </section>
     <section class="publication-section">
       <h2>발표 논문</h2>
@@ -465,6 +476,50 @@ write(
       ${aboutPhoto(image, alt, 316, 316)}
       <div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>
     </li>`).join("")}</ol>
+  </section>
+</div>`,
+  })
+);
+
+// 무엇이 다른가요?
+const approachCrumbs = [["홈", "/"], [approachLabel, approachMenu.acupuncture.path]];
+const acupunctureDescription = "변혁 원장이 국제학회에서 발표한 침 치료 연구와 해외 강연을 소개합니다.";
+const gongjindan = programs.find((program) => program.slug === "gongjindan");
+
+write(
+  "approach/index.html",
+  layout({
+    path: approachMenu.acupuncture.path,
+    title: `${approachMenu.acupuncture.label} | ${site.name}`,
+    desc: acupunctureDescription,
+    crumbs: approachCrumbs,
+    body: `${pageHead("", approachMenu.acupuncture.label, acupunctureDescription)}
+<div class="wrap narrow page-body">
+  <h2>학술 발표와 강연</h2>
+  ${academicHistory}
+  <a class="more" href="${aboutMenu.profile.path}#research">원장의 학술 활동과 약력 보기</a>
+</div>`,
+  })
+);
+
+write(
+  "approach/herbal-medicine/index.html",
+  layout({
+    path: approachMenu.herbalMedicine.path,
+    title: `6.1g 변혁공진단과 한약 | ${site.name}`,
+    desc: gongjindan.summary,
+    crumbs: [...approachCrumbs, [approachMenu.herbalMedicine.label, approachMenu.herbalMedicine.path]],
+    body: `${pageHead("", "6.1g 변혁공진단과 한약", gongjindan.summary)}
+<div class="wrap narrow page-body">
+  <div class="guide-card">
+    <h2>6.1g 변혁공진단</h2>
+    <p>${esc(gongjindan.intro)}</p>
+    <a class="more" href="/fees/">비급여 진료비 보기</a>
+  </div>
+  <section class="section-link guide-card">
+    <h2>맞춤 한약 처방</h2>
+    <p>변혁 원장이 증상과 체질, 복용 중인 약을 살핀 뒤 한약 처방과 복용 방법을 안내합니다.</p>
+    <a class="more" href="/programs/gongjindan/">공진단·한약 진료 안내 보기</a>
   </section>
 </div>`,
   })
