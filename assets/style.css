@@ -33,7 +33,7 @@ address{font-style:normal}
 
 /* ───────── 2. 헤더 ───────── */
 .hd{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.92);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
-.hd .wrap{display:flex;align-items:center;gap:24px;height:76px}
+.hd .wrap{display:flex;align-items:center;gap:20px;height:76px}
 .logo{display:flex;align-items:center;gap:12px;flex:none;text-decoration:none;color:var(--navy)}
 .logo:hover{color:var(--navy)}
 .logo-mark{position:relative;flex:none;width:36px;height:36px;border-radius:10px;background:var(--blue)}
@@ -42,11 +42,19 @@ address{font-style:normal}
 .logo-text b{font:700 21px/1 var(--serif);letter-spacing:-.04em}
 .logo-text small{font-size:11.5px;line-height:1;color:var(--mut);font-weight:500;letter-spacing:0}
 .hd nav{flex:1;min-width:0}
-.hd nav ul{display:flex;justify-content:flex-end;gap:2px;list-style:none}
-.hd nav a{position:relative;display:block;padding:9px 12px;color:var(--ink);text-decoration:none;font-size:15.5px;font-weight:500;white-space:nowrap}
-.hd nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
-.hd nav a:hover::after,.hd nav a[aria-current]::after{transform:scaleX(1)}
-.hd nav a[aria-current]{color:var(--blue);font-weight:700}
+.hd .nav-items{display:flex;justify-content:flex-end;gap:2px;list-style:none}
+.hd .nav-link{position:relative;display:block;padding:9px;color:var(--ink);text-decoration:none;font-size:15.5px;font-weight:500;white-space:nowrap}
+.hd .nav-link::after{content:"";position:absolute;left:9px;right:9px;bottom:3px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.hd .nav-link:hover::after,.hd .nav-link[aria-current]::after,.hd .nav-disclosure[open]>.nav-link::after{transform:scaleX(1)}
+.hd .nav-link[aria-current]{color:var(--blue);font-weight:700}
+.nav-disclosure{position:relative}
+.hd .nav-disclosure summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer}
+.nav-disclosure summary::-webkit-details-marker{display:none}
+.nav-disclosure summary::before{content:"";order:1;width:7px;height:7px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg)}
+.nav-disclosure[open] summary::before{transform:translateY(2px) rotate(225deg)}
+.nav-children{position:absolute;z-index:1;top:100%;left:0;min-width:200px;padding:5px;background:var(--card);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow);list-style:none}
+.nav-children a{display:block;min-height:44px;padding:8px 12px;color:var(--ink);font-size:16px;font-weight:600;text-decoration:none;white-space:nowrap}
+.nav-children a:hover,.nav-children a:focus-visible{border-radius:7px;background:var(--paper-2);color:var(--blue)}
 .call{flex:none;display:inline-flex;align-items:center;padding:10px 20px;border-radius:99px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:0;transition:background .2s}
 .call:hover{background:var(--blue);color:#fff}
 .fab{display:none}
@@ -209,10 +217,11 @@ address{font-style:normal}
 .doc-card .tags{justify-content:center;margin-bottom:26px;gap:8px}
 .doc-card .tags li{padding:6px 13px;font-size:13.5px}
 .doc-card .btn{width:100%}
+.doctor-profile>h2{margin-bottom:16px;font-size:27px;color:var(--navy)}
 .cv-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:32px;padding:34px 0;border-top:1px solid var(--line-2)}
-.cv-row:first-child{padding-top:0;border-top:0}
-.cv-row h2{font-size:19px;line-height:1.55;color:var(--navy)}
+.cv-row h2,.cv-row h3{font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--navy)}
 .cv-row .check{gap:11px;font-size:16px}
+.cv-row p{margin:0}
 
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;list-style:none;counter-reset:s}
 .steps li{counter-increment:s;padding:28px 24px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);font-weight:600;color:var(--navy)}
@@ -287,15 +296,21 @@ address{font-style:normal}
 @media(max-width:640px){.guide-grid,.treatment-grid,.equipment-gallery{grid-template-columns:1fr}.guide-card,.doctor-message{padding:24px}.guide-card h2{font-size:23px}}
 
 /* ───────── 7. 반응형 ───────── */
+@media (max-width:1140px){
+  .hd .wrap{flex-wrap:wrap;height:auto;gap:0 16px;padding:12px 28px 0}
+  .hd nav{position:relative;order:3;flex:0 0 calc(100% + 56px);margin:10px -28px 0;padding:0 14px;border-top:1px solid var(--line)}
+  .hd .nav-items{justify-content:flex-start;gap:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .hd .nav-items::-webkit-scrollbar{display:none}
+  .hd .nav-link{padding:13px 14px}
+  .hd .nav-link::after{left:14px;right:14px;bottom:0}
+  .hd .nav-link:focus-visible{outline-offset:-3px}
+  .nav-disclosure{position:static}
+  .nav-children{left:14px}
+  .cv [id]{scroll-margin-top:132px}
+  .call{margin-left:auto;padding:9px 18px}
+}
 @media (max-width:1100px){
   .wrap{padding:0 28px}
-  .hd .wrap{flex-wrap:wrap;height:auto;gap:0 16px;padding-top:12px;padding-bottom:0}
-  .hd nav{order:3;flex:0 0 calc(100% + 56px);margin:10px -28px 0;padding:0 14px;border-top:1px solid var(--line)}
-  .hd nav ul{justify-content:flex-start;gap:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .hd nav ul::-webkit-scrollbar{display:none}
-  .hd nav a{padding:13px 14px}
-  .hd nav a::after{left:14px;right:14px;bottom:0}
-  .call{margin-left:auto;padding:9px 18px}
   .hero-grid{gap:44px}
   .detail-grid{grid-template-columns:minmax(0,1fr) 300px;gap:44px}
   .about-grid{gap:48px}
@@ -326,7 +341,7 @@ address{font-style:normal}
 @media (max-width:640px){
   body{font-size:16px}
   .wrap{padding:0 20px}
-  .hd .wrap{padding-top:10px}
+  .hd .wrap{padding:10px 20px 0}
   .hd nav{flex-basis:calc(100% + 40px);margin-left:-20px;margin-right:-20px;padding:0 6px}
   .hours small{display:block;margin-left:0}
   .logo-text b{font-size:19px}

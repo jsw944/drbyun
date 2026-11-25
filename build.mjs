@@ -1,7 +1,7 @@
 // 사용법: node build.mjs  → dist/ 에 정적 사이트 생성
 import { mkdirSync, writeFileSync, cpSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, faqs, fees, metaDefaults } from "./content.mjs";
+import { hoursText, site, doctor, features, treatmentGuide, research, clinicGallery, programs, specialistFaq, faqs, fees, metaDefaults } from "./content.mjs";
 import { loadColumns } from "./columns.mjs";
 
 const columns = loadColumns();
@@ -93,15 +93,36 @@ const tel = `tel:${site.phone.replace(/[^0-9+]/g, "")}`;
 const mapBtn = (cls = "btn btn-line") =>
   site.naverMapUrl ? `<a class="${cls}" href="${esc(site.naverMapUrl)}" target="_blank" rel="noopener">네이버 지도에서 보기</a>` : "";
 
+const aboutMenu = {
+  greeting: "치료에 임하는 인사말",
+  profile: "약력",
+  specialist: "침구의학 전문의",
+};
 const nav = [
   ["/programs/", "진료 안내"],
-  ["/about/", "원장 소개"],
+  ["/about/", "원장 소개", aboutMenu],
   ["/treatments/", "치료·장비"],
   ["/visit/", "처음 오시는 분"],
   ["/fees/", "비급여 진료비"],
   ["/columns/", "건강 칼럼"],
   ["/faq/", "자주 묻는 질문"],
 ];
+
+function primaryNav(path) {
+  return nav.map(([href, label, sections]) => {
+    const current = path.startsWith(href);
+    if (!sections) {
+      return `<li><a class="nav-link" href="${href}"${current ? ' aria-current="page"' : ""}>${esc(label)}</a></li>`;
+    }
+    const links = Object.entries(sections)
+      .map(([id, text]) => `<li><a href="${href}#${id}">${esc(text)}</a></li>`)
+      .join("");
+    return `<li><details class="nav-disclosure">
+      <summary class="nav-link"${current ? ' aria-current="true"' : ""}>${esc(label)}</summary>
+      <ul class="nav-children">${links}</ul>
+    </details></li>`;
+  }).join("");
+}
 
 const hoursList = () =>
   `<ul class="hours">${site.hours
@@ -216,7 +237,7 @@ ${all.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</scrip
 <a class="skip" href="#main">본문 바로가기</a>
 <header class="hd"><div class="wrap">
   <a class="logo" href="/" aria-label="${esc(site.name)} 홈"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text"><b>${esc(site.name)}</b><small>${esc(doctor.license)}</small></span></a>
-  <nav aria-label="주 메뉴"><ul>${nav.map(([h, t]) => `<li><a href="${h}"${path.startsWith(h) ? ' aria-current="page"' : ""}>${t}</a></li>`).join("")}</ul></nav>
+  <nav aria-label="주 메뉴"><ul class="nav-items">${primaryNav(path)}</ul></nav>
   <a class="call" href="${tel}">${esc(site.phone)}</a>
 </div></header>
 ${crumbBar}
@@ -247,6 +268,21 @@ ${body}
   </div>
 </div></footer>
 <a class="fab" href="${tel}">전화 예약 ${esc(site.phone)}</a>
+<script>
+  for (const disclosure of document.querySelectorAll(".nav-disclosure")) {
+    document.addEventListener("click", (event) => {
+      if (!disclosure.contains(event.target) || event.target.closest(".nav-children a")) {
+        disclosure.open = false;
+      }
+    });
+    disclosure.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && disclosure.open) {
+        disclosure.open = false;
+        disclosure.querySelector("summary").focus();
+      }
+    });
+  }
+</script>
 </body>
 </html>`;
 }
@@ -358,9 +394,13 @@ write(
     <ul class="tags">${doctor.specialties.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
     <a class="btn" href="${tel}">전화 예약</a>
   </aside>
-  <div class="cv"><section class="doctor-message" id="greeting"><p class="kicker">${esc(doctor.vision)}</p><h2>온 가족의 든든한 주치의</h2><p>${esc(doctor.philosophy)}</p><p class="signature">한의학 박사 · 침구의학과 전문의 변혁</p></section>${doctor.sections
-    .map((sec) => `<section class="cv-row"><h2>${esc(sec.h)}</h2><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`)
-    .join("")}
+  <div class="cv">
+    <section class="doctor-message" id="greeting" aria-label="${esc(aboutMenu.greeting)}"><p class="kicker">${esc(doctor.vision)}</p><h2>온 가족의 든든한 주치의</h2><p>${esc(doctor.philosophy)}</p><p class="signature">한의학 박사 · 침구의학과 전문의 변혁</p></section>
+    <section class="doctor-profile" id="profile">
+      <h2>${esc(aboutMenu.profile)}</h2>
+      ${doctor.sections.map((sec) => `<section class="cv-row"><h3>${esc(sec.h)}</h3><ul class="check">${sec.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></section>`).join("")}
+    </section>
+    <section class="cv-row" id="specialist"><h2>${esc(aboutMenu.specialist)}</h2><p>${esc(specialistFaq.a)}</p></section>
     <section class="research-section" id="research"><p class="kicker">RESEARCH & EXCHANGE</p><h2>학술 발표와 교류</h2>
     <figure class="research-photo"><img src="/assets/blog/lecture-1.jpg" alt="우즈베키스탄 한의약 학술 세미나의 변혁 원장과 강연 현장" width="773" height="350" loading="lazy"><figcaption>2022년 타슈켄트 한의약 연수 과정</figcaption></figure>
     <ol class="research-list">${research.map((r) => `<li><span class="kicker">${esc(r.year)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></li>`).join("")}</ol></section></div>

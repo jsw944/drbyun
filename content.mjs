@@ -225,8 +225,13 @@ export const programs = [
 
 // 자주 묻는 질문 ─ 메인·/faq/ 에 노출되고 FAQPage 구조화데이터로 출력됩니다.
 // 답변은 첫 문장에 결론을 쓰는 것이 AI 인용에 유리합니다.
+export const specialistFaq = {
+  q: "침구의학과 전문의는 무엇인가요?",
+  a: "침구의학과 전문의는 한의사 면허 취득 후 수련 과정을 거쳐 취득하는 전문의 자격입니다. 변혁 한의원 변혁 대표원장은 침구의학과 전문의이자 한의학 박사입니다.",
+};
+
 export const faqs = [
-  { q: "침구의학과 전문의는 무엇인가요?", a: "침구의학과 전문의는 한의사 면허 취득 후 수련 과정을 거쳐 취득하는 전문의 자격입니다. 변혁 한의원 변혁 대표원장은 침구의학과 전문의이자 한의학 박사입니다." },
+  specialistFaq,
   { q: "주차할 수 있나요?", a: site.parking },
   { q: "진료 시간은 어떻게 되나요?", a: `${site.hours.map(hoursText).join(", ")}. ${site.hoursNote}` },
   { q: "변혁 한의원은 어디에 있나요?", a: `${site.address.region} ${site.address.locality} ${site.address.street}에 있으며, ${site.directions}입니다.` },
