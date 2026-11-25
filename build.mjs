@@ -119,7 +119,24 @@ const primaryNav = (path) => nav.map(([href, label]) =>
 
 const aboutNav = (path) => `<nav class="about-nav" aria-label="원장 소개 하위 메뉴"><ul class="wrap">${Object.values(aboutMenu).map((page) =>
   `<li><a href="${page.path}"${path === page.path ? ' aria-current="page"' : ""}>${esc(page.label)}</a></li>`
-).join("")}</ul></nav>`;
+).join("")}</ul></nav>
+<script>
+  {
+    const parentLink = document.querySelector(".hd .nav-link[aria-current]");
+    const menu = document.querySelector(".about-nav ul");
+    function alignAboutMenu() {
+      const first = menu.firstElementChild.getBoundingClientRect();
+      const last = menu.lastElementChild.getBoundingClientRect();
+      const rightPadding = parseFloat(getComputedStyle(menu).paddingInlineEnd);
+      const available = menu.clientWidth - (last.right - first.left) - rightPadding;
+      const requested = parentLink.getBoundingClientRect().left - menu.getBoundingClientRect().left;
+      menu.style.setProperty("--about-nav-start", Math.max(0, Math.min(requested, available)) + "px");
+    }
+    alignAboutMenu();
+    new ResizeObserver(alignAboutMenu).observe(menu, { box: "border-box" });
+    document.fonts.ready.then(alignAboutMenu);
+  }
+</script>`;
 
 const hoursList = () =>
   `<ul class="hours">${site.hours
@@ -191,8 +208,9 @@ function layout({ path, title, desc, body, ld = [], type = "website", crumbs, no
   const url = abs(path);
   const all = [...ld, ...(crumbs ? [crumbLD(crumbs)] : [])];
   pages.push({ path, lastmod: today });
+  const isAbout = path.startsWith(aboutMenu.greeting.path);
   const crumbBar =
-    crumbs && crumbs.length > 1
+    !isAbout && crumbs && crumbs.length > 1
       ? `<div class="crumbs-bar"><nav class="wrap crumbs" aria-label="경로">${crumbs
           .map(([n, p], i) => (i < crumbs.length - 1 ? `<a href="${p}">${esc(n)}</a><i>/</i>` : `<span aria-current="page">${esc(n)}</span>`))
           .join("")}</nav></div>`
@@ -237,7 +255,7 @@ ${all.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</scrip
   <nav aria-label="주 메뉴"><ul class="nav-items">${primaryNav(path)}</ul></nav>
   <a class="call" href="${tel}">${esc(site.phone)}</a>
 </div></header>
-${path.startsWith(aboutMenu.greeting.path) ? aboutNav(path) : ""}
+${isAbout ? aboutNav(path) : ""}
 ${crumbBar}
 <main id="main">
 ${body}

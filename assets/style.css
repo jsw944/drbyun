@@ -51,7 +51,7 @@ address{font-style:normal}
 .call:hover{background:var(--blue);color:#fff}
 .fab{display:none}
 .about-nav{background:var(--card);border-bottom:1px solid var(--line-2)}
-.about-nav ul{display:grid;grid-template-columns:repeat(3,max-content);gap:14px;list-style:none}
+.about-nav ul{display:grid;grid-template-columns:repeat(3,max-content);gap:14px;padding-inline-start:var(--about-nav-start,32px);list-style:none}
 .about-nav a{display:flex;justify-content:center;align-items:center;height:100%;min-height:54px;padding:10px 18px 8px;border-bottom:2px solid transparent;color:var(--mut);font-size:16px;font-weight:600;line-height:1.4;text-align:center;text-decoration:none}
 .about-nav a:hover,.about-nav a[aria-current]{color:var(--blue)}
 .about-nav a[aria-current]{border-bottom-color:var(--blue);font-weight:700}
