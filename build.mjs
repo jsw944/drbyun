@@ -519,7 +519,7 @@ write(
       ${presentation.photos.map((photo) => approachFigure(photo, { enlarge: true })).join("")}
     </article>`).join("")}</div>
     <div class="approach-links">
-      <a class="more" href="${icmartProgramme}">2007년 ICMART 공식 프로그램 보기</a>
+      <a class="more" href="${icmartProgramme}" target="_blank" rel="noopener">2007년 ICMART 공식 프로그램 보기</a>
       <a class="more" href="${aboutMenu.profile.path}#research">원장의 학술 활동과 약력 보기</a>
     </div>
   </section>
